@@ -1,7 +1,13 @@
+
+*! pathof version 1.0 2014-11-01 
+*! author: Michael Barker mdb96@georgetown.edu
+
 program define pathof , rclass
 	version 12
 	syntax [anything(id="directory name" name=target)] [, local(name local)]
 
+	* Strip off any outer quotes of target directory
+	local target `target'
 	* Call getpath mata routine. Store return value in local macro, path.
 	mata: st_local("path" , getpath(`"`:pwd'"' , `"`target'"'))
 
@@ -22,7 +28,7 @@ end
 
 version 12
 mata:
-// Recursive program to find the target directory along the current path.
+// Recursive search of the current path to find the target directory. 
 string scalar getpath(string scalar path , string scalar target) 
 {
 	// If the last element of the path matches the target directory, 
