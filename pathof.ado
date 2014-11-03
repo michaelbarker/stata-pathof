@@ -1,9 +1,8 @@
-
 *! pathof version 1.0 2014-11-01 
 *! author: Michael Barker mdb96@georgetown.edu
 
 program define pathof , rclass
-	version 12
+	version 11
 	syntax [anything(id="directory name" name=target)] [, local(name local)]
 
 	* Strip off any outer quotes of target directory
@@ -13,7 +12,7 @@ program define pathof , rclass
 
 	* If returned path is empty.
 	if `"`path'"'=="" {
-		display as error "Directory not found in path of current working directory" 
+		display as result "Directory not found in path of current working directory" 
 		exit
 	}
 	
@@ -26,13 +25,12 @@ program define pathof , rclass
 	}
 end
 
-version 12
+version 11
 mata:
 // Recursive search of the current path to find the target directory. 
 string scalar getpath(string scalar path , string scalar target) 
 {
-	// If the last element of the path matches the target directory, 
-	// return the current path.
+	// If the last element of the path matches the target directory, return the current path.
 	if (path=="" | pathbasename(path)==target) {
 		return(path)
 	}
